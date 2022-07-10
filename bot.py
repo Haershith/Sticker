@@ -4,11 +4,11 @@ from pyrogram.types import Message
 from pyrogram import Client, filters
 
 
-bot = Client(
-    "ST-Bot",
-    api_id=Config.API_ID,
-    api_hash=Config.API_HASH,
-    bot_token=Config.BOT_TOKEN,
+Bot = Client(
+    "Info Bot",
+    bot_token=os.environ.get("BOT_TOKEN"),
+    api_id=int(os.environ.get("API_ID")),
+    api_hash=os.environ.get("API_HASH")
 )
 
 
@@ -16,7 +16,7 @@ bot = Client(
 async def sticker_image(_, msg: Message):
     user_id = msg.from_user.id
     message_id = msg.message_id
-    name_format = f"StarkBots_{user_id}_{message_id}"
+    name_format = f"Bot_{user_id}_{message_id}"
     if msg.photo:
         message = await msg.reply("Converting...")
         image = await msg.download(file_name=f"{name_format}.jpg")
